@@ -14,6 +14,9 @@ import com.baidu.entity.Dept;
 import com.baidu.entity.User;
 
 @Repository(value="dao")
+
+
+
 public class ERPDao {
 
 	@Autowired
