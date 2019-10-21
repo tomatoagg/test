@@ -22,6 +22,8 @@ public class ERPDao {
 	@Autowired
 	JdbcTemplate jdbcT;
 	
+	
+	
 	/**
 	 * 验证用户名和密码
 	 */
