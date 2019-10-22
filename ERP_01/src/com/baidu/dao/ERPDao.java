@@ -1,21 +1,26 @@
 package com.baidu.dao;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.baidu.entity.Dept;
+import com.baidu.entity.Role;
 import com.baidu.entity.User;
+
 @Repository(value="dao")
-
-
-
 public class ERPDao {
 
 	@Autowired
@@ -148,6 +153,45 @@ public class ERPDao {
 		RowMapper<User> row = new BeanPropertyRowMapper<>(User.class);
 		User user = jdbcT.queryForObject(str.toString(),row);
 		return user;
+	}
+	/**
+	 * 查询所有角色
+	 * @return
+	 */
+	public List<Role> findAllRole() {
+		String sql = "select * from tbl_role";
+		RowMapper<Role> row = new BeanPropertyRowMapper<>(Role.class);
+		return jdbcT.query(sql,row);
+	}
+	
+	
+	/**
+	 * 添加用户并返回主键id
+	 */
+	public int  insertUser(User user) {
+		String sql  =  "INSERT INTO `ERP`.`tbl_emp`( `userName`, `pwd`, `name`, `email`, `tele`, `address`, `gender`, `birthday`, `depUuid`, `lastLoginTime`, `lastLoginIp`, `loginTimes`) VALUES ('admin', '1', '赵云', 'admin@itcast.cn', '112233', '金燕龙1楼大厅', 1, 1263830400000, 1, 1422266691599, '0:0:0:0:0:0:0:1', 33)";
+		// 创建一个主键持有者
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcT.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement ps = conn.prepareStatement(sql);
+				return ps;
+			}
+		},keyHolder);
+		//返回添加到主键
+		return keyHolder.getKey().intValue();
+	}
+	/**
+	 * 添加用户和角色中间表
+	 * @param uuid
+	 * @param string
+	 */
+	public void insertUserRole(int uuid, String string) {
+		// TODO Auto-generated method stub
+		String sql = "insert into tbl_emp_role (empuuid,roleuuid) values("+uuid+","+string+")";
+		jdbcT.update(sql);
 	}
 	
 }

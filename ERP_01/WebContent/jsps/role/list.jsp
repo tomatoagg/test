@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
-<link href="../../css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../../js/Calendar.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<%=request.getContextPath() %>/css/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/Calendar.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#query").click(function() {
@@ -35,8 +36,8 @@
 						<td width="142"><input type="text" size="18" /></td>
 						<td width="60">角色编码</td>
 						<td width="149"><input type="text" size="18" /></td>
-						<td width="70"><a id="query"> <img src="../../images/can_b_01.gif" border="0" /> </a></td>
-						<td width="70"><a href="./input.jsp"><img src="../../images/can_b_02.gif" border="0" /></a></td>
+						<td width="70"><a id="query"> <img src="<%=request.getContextPath() %>/images/can_b_01.gif" border="0" /> </a></td>
+						<td width="70"><a href="./input.jsp"><img src="<%=request.getContextPath() %>/images/can_b_02.gif" border="0" /></a></td>
 					</tr>
 				</table>
 			</div>
@@ -44,25 +45,27 @@
 			<div class="square-order">
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
-						style="background:url(../../images/table_bg.gif) repeat-x;">
+						style="background:url(<%=request.getContextPath() %>/images/table_bg.gif) repeat-x;">
 						<td width="40%" height="30">角色名称</td>
 						<td width="40%">角色编码</td>
 						<td width="20%">操作</td>
 					</tr>
-					<tr align="center" bgcolor="#FFFFFF">
-						<td height="30">主管</td>
-						<td>zg</td>
-						<td>
-							<img src="../../images/icon_3.gif" /> 
-							<span style="line-height:12px; text-align:center;"> 
-								<a href="./input.jsp" class="xiu">修改</a>
-							</span> 
-							<img src="../../images/icon_04.gif" /> 
-							<span style="line-height:12px; text-align:center;"> 
-								<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
-							</span>
-						</td>
-					</tr>
+					<c:forEach items="${role }" var = "r">
+						<tr align="center" bgcolor="#FFFFFF">
+							<td height="30">${r.name }</td>
+							<td>${r.code }</td>
+							<td>
+								<img src="<%=request.getContextPath() %>/images/icon_3.gif" /> 
+								<span style="line-height:12px; text-align:center;"> 
+									<a href="./input.jsp" class="xiu">修改</a>
+								</span> 
+								<img src="<%=request.getContextPath() %>/images/icon_04.gif" /> 
+								<span style="line-height:12px; text-align:center;"> 
+									<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
+								</span>
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
 		</form>

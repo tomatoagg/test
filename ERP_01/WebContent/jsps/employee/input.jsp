@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <link href="<%=request.getContextPath()%>/css/index.css" rel="stylesheet" type="text/css" />
+<%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c"%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#all").click(function() {
-			$("[name=roles]:checkbox").attr("checked",$("#all").attr("checked")=="checked");
+			$(".check").attr("checked",$("#all").attr("checked")=="checked");
 		});
 		$("#reverse").click(function() {
-			$("[name=roles]:checkbox").each(function () {
+			$(".check").each(function () {
                 $(this).attr("checked", !$(this).attr("checked"));
             });
 
@@ -25,6 +26,17 @@
 					$("#deptSelect").append(option);
 				}
 			},'json'
+		);
+		
+		//查询角色列表
+		$.post(
+			"<%=request.getContextPath()%>/FindRoleServletToJson",
+			function(data){
+				$("#checkboxRole").html("");
+				for(var i = 0;i < data.length ; i++){
+					$("#checkboxRole").append("<input type='checkbox' name='roleId' class='check' value='"+data[i].uuid+"'>"+data[i].name);
+				}
+			},'json'
 		)
 	});
 </script>
@@ -36,7 +48,7 @@
 	</div>
 	<div class="content-text">
 		<div class="square-order">
-			<form action="list.jsp" method="post"> 
+			<form action="<%=request.getContextPath() %>/InsertUserAndUserRole" method="post"> 
   			<div style="border:1px solid #cecece;">
 				<table width="100%"  border="0" cellpadding="0" cellspacing="0">
 				  <tr bgcolor="#FFFFFF">
@@ -85,7 +97,7 @@
 				    <tr  bgcolor="#FFFFFF">
 				      <td height="30" align="center">性&nbsp;&nbsp;&nbsp;&nbsp;别</td>
 				      <td>
-				      	<select style="width:190px" name="gender" value="${user.gender }">
+				      		<select style="width:190px" name="gender" value="${user.gender }">
 								<option value="-1">----请-选-择----</option>
 								<option value="1">男</option>
 								<option value="0">女</option>
@@ -116,22 +128,13 @@
 				    <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">角色名称</td>
 				      <td width="82%" colspan="3">
-				      	<input type="checkbox" id="all">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				      	<input type="checkbox" id="reverse">反选
+				      	<input type="radio" name="radioRole" id="all">全选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				      	<input type="radio" name="radioRole" id="reverse">反选
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">
 				      <td width="18%" height="30" align="center">&nbsp;</td>
-				      <td width="82%" colspan="3">
-				      	<input type="checkbox">经理
-				      	<input type="checkbox">主管
-				      	<input type="checkbox">员工
-				      	<input type="checkbox">经理
-				      	<input type="checkbox">主管
-				      	<input type="checkbox">员工
-				      	<input type="checkbox">经理
-				      	<input type="checkbox">主管
-				      	<input type="checkbox">员工
+				      <td width="82%" colspan="3" id = "checkboxRole"> 
 				      </td>
 				    </tr>
 				    <tr  bgcolor="#FFFFFF">

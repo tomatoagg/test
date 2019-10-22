@@ -13,13 +13,10 @@ public class Test {
 		// TODO Auto-generated method stub
 
 		ApplicationContext app = new ClassPathXmlApplicationContext("applicationContext.xml");
-		ERPService e = (ERPService)app.getBean("userService");
+		ERPDao e = (ERPDao)app.getBean("dao");
 		
-		User u = new User();
-		u.setUserName("admin");
-		u.setPwd("1");
-		User user = e.loginChect(u);
-		System.out.println(user);
+		
+		System.out.println(e.insertUser(null));
 	}
 
 }

@@ -128,7 +128,7 @@
 								<td><a class="hei" target="main" href="<%=request.getContextPath()%>/FindEmpListServlet">&nbsp;&nbsp;&nbsp;&nbsp;员工维护</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="role/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;角色维护</a></td>
+								<td><a class="hei" target="main" href="<%=request.getContextPath()%>/FindRoleServlet">&nbsp;&nbsp;&nbsp;&nbsp;角色维护</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="resource/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;资源维护</a></td>
