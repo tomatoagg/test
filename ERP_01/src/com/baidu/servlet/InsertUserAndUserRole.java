@@ -51,7 +51,7 @@ public class InsertUserAndUserRole extends HttpServlet {
 		for (String string : values) {
 			service.insertUserRole(uuid,string);
 		}
-	
+		response.sendRedirect("FindEmpListServlet");
 	}
 
 	/**
