@@ -42,8 +42,8 @@ public class ToUpdateJspServlet extends HttpServlet {
 		request.setAttribute("dept", dept);
 		request.setAttribute("flag", "1");
 		request.getRequestDispatcher("jsps/department/input.jsp").forward(request, response);
-		
-	}
+		 
+	} 
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
