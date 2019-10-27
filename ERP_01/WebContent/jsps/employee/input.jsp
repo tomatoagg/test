@@ -15,6 +15,7 @@
 
 		});
 		$("#deptSelect").html("");
+		
 		//查询部门编号
 		$.post(
 			"<%=request.getContextPath()%>/FindDeptListToJsonServlet",
@@ -27,7 +28,7 @@
 				}
 			},'json'
 		);
-		
+		$.ajaxSettings.async = true;
 		//查询角色列表
 		$.post(
 			"<%=request.getContextPath()%>/FindRoleServletToJson",
@@ -37,7 +38,25 @@
 					$("#checkboxRole").append("<input type='checkbox' name='roleId' class='check' value='"+data[i].uuid+"'>"+data[i].name);
 				}
 			},'json'
-		)
+		);
+		//判断是否识修改
+		if($("input[name='flag']").val() == 1){
+			//查询当前用户角色
+			var uuid = ${user.uuid};
+			$.ajaxSettings.async = true;	
+			$.post(
+				"<%=request.getContextPath()%>/FindUserRoleServletToJsonServlet",
+				{uuid:uuid},
+				function(data){
+					alert(data);
+					for(var i = 0 ; i < data.length ; i++){
+						$(".check[value='"+data[i].roleUuid+"']").attr("checked","checked");
+					}
+				},'json'
+				
+			);
+		}
+		
 	});
 </script>
 <div class="content-right">
@@ -48,7 +67,10 @@
 	</div>
 	<div class="content-text">
 		<div class="square-order">
-			<form action="<%=request.getContextPath() %>/InsertUserAndUserRole" method="post"> 
+			<form action="<%=request.getContextPath() %>/UpdateUserAndUserRoleServlet" method="post"> 
+			<input type="hidden" name="flag" value="${flag }">
+			<input type="hidden" name="uuid" value="${user.uuid}">
+			
   			<div style="border:1px solid #cecece;">
 				<table width="100%"  border="0" cellpadding="0" cellspacing="0">
 				  <tr bgcolor="#FFFFFF">
@@ -118,7 +140,7 @@
 					  </td>
 				      <td align="center">所属部门</td>
 				      <td>
-				      	<select class="kuan" id="deptSelect" name = "dept" value="${user.depUuid }">
+				      	<select class="kuan" id="deptSelect" name = "dept">
 						</select>
 					  </td>
 				    </tr>

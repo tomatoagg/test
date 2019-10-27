@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.baidu.entity.Dept;
+import com.baidu.entity.EmpRole;
 import com.baidu.entity.Role;
 import com.baidu.entity.User;
 
@@ -192,6 +193,17 @@ public class ERPDao {
 		// TODO Auto-generated method stub
 		String sql = "insert into tbl_emp_role (empuuid,roleuuid) values("+uuid+","+string+")";
 		jdbcT.update(sql);
+	}
+	/**
+	 * 根据用户 查询角色
+	 * @param uuid
+	 * @return
+	 */
+	public List<EmpRole> findUserRoleServletToJson(String uuid) {
+		// TODO Auto-generated method stub
+		String sql = "select * from tbl_emp_role where empUuid =  "+uuid;
+		RowMapper<EmpRole> row = new BeanPropertyRowMapper<>(EmpRole.class);
+		return jdbcT.query(sql,row);
 	}
 	
 }

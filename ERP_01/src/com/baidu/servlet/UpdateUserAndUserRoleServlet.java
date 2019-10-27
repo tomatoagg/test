@@ -12,16 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import com.baidu.entity.User;
 import com.baidu.service.ERPService;
 
 /**
- * Servlet implementation class ToUpdateUserJspServlet
+ * Servlet implementation class UpdateUserAndUserRoleServlet
  */
-@WebServlet("/ToUpdateUserJspServlet")
-public class ToUpdateUserJspServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/UpdateUserAndUserRoleServlet")
+public class UpdateUserAndUserRoleServlet extends HttpServlet {
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Autowired
 	ERPService service;
 	
@@ -33,20 +36,15 @@ public class ToUpdateUserJspServlet extends HttpServlet {
 		//解决自动注入的问题
 		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
 	}
-       
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String uuid = request.getParameter("uuid");
-		
-		User user = service.findUserById(uuid);
-		
-		request.setAttribute("user", user);
-		//修改标识
-		request.setAttribute("flag", "1");
-		request.getRequestDispatcher("jsps/employee/input.jsp").forward(request, response);
-		
+
+	
+	
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

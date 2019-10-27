@@ -55,7 +55,7 @@ public class LoginCheckServlet extends HttpServlet {
 			//获取session对象
 			HttpSession session = request.getSession();
 			//将用户数据保存到session中
-			session.setAttribute("user", user);
+			session.setAttribute("userSession", user);
 			out.write("1");
 		}
 		
