@@ -12,7 +12,6 @@
 			$(".check").each(function () {
                 $(this).attr("checked", !$(this).attr("checked"));
             });
-
 		});
 		$("#deptSelect").html("");
 		
@@ -40,15 +39,15 @@
 			},'json'
 		);
 		//判断是否识修改
-		if($("input[name='flag']").val() == 1){
+		var  flag =  $("input[name='flag']").val() 
+		if(flag == 1){
 			//查询当前用户角色
-			var uuid = ${user.uuid};
+			var uuid = $("input[name='uuid']").val();
 			$.ajaxSettings.async = true;	
 			$.post(
 				"<%=request.getContextPath()%>/FindUserRoleServletToJsonServlet",
 				{uuid:uuid},
 				function(data){
-					alert(data);
 					for(var i = 0 ; i < data.length ; i++){
 						$(".check[value='"+data[i].roleUuid+"']").attr("checked","checked");
 					}
@@ -69,7 +68,7 @@
 		<div class="square-order">
 			<form action="<%=request.getContextPath() %>/UpdateUserAndUserRoleServlet" method="post"> 
 			<input type="hidden" name="flag" value="${flag }">
-			<input type="hidden" name="uuid" value="${user.uuid}">
+			<input type="hidden" name="uuid"  value="${user.uuid}">
 			
   			<div style="border:1px solid #cecece;">
 				<table width="100%"  border="0" cellpadding="0" cellspacing="0">
