@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link href="../../css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../../js/Calendar.js"></script>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="<%=request.getContextPath() %>/css/index.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/js/Calendar.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$("#query").click(function() {
@@ -48,8 +49,8 @@
 								<option value="2">可视</option>
 							</select>
 						</td>
-						<td width="70"><a id="query"> <img src="../../images/can_b_01.gif" border="0" /> </a></td>
-						<td width="70"><a href="./input.jsp"><img src="../../images/can_b_02.gif" border="0" /></a></td>
+						<td width="70"><a id="query"> <img src="<%=request.getContextPath() %>/images/can_b_01.gif" border="0" /> </a></td>
+						<td width="70"><a href="./input.jsp"><img src="<%=request.getContextPath() %>/images/can_b_02.gif" border="0" /></a></td>
 					</tr>
 				</table>
 			</div>
@@ -57,29 +58,29 @@
 			<div class="square-order">
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
-						style="background:url(../../images/table_bg.gif) repeat-x;">
+						style="background:url(<%=request.getContextPath() %>/images/table_bg.gif) repeat-x;">
 						<td height="30">资源名称</td>
-						<td>资源类别</td>
-						<td>操作类别</td>
+						
 						<td>资源值</td>
 						<td width="16%">操作</td>
 					</tr>
+					<c:forEach items="${list }" var="r">
+					
 					<tr align="center" bgcolor="#FFFFFF">
-						<td width="13%" height="30">添加/修改员工信息</td>
-						<td>action访问</td>
-						<td>可访问</td>
-						<td align="left">cn.itcast.invoice.auto.employee.web.EmployeeAction.input</td>
+						<td width="13%" height="30">${r.name}</td>
+						<td align="left">${r.url}</td>
 						<td>
-							<img src="../../images/icon_3.gif" /> 
+							<img src="<%=request.getContextPath() %>/images/icon_3.gif" /> 
 							<span style="line-height:12px; text-align:center;"> 
 								<a href="./input.jsp" class="xiu">修改</a>
 							</span> 
-							<img src="../../images/icon_04.gif" /> 
+							<img src="<%=request.getContextPath() %>/images/icon_04.gif" /> 
 							<span style="line-height:12px; text-align:center;"> 
 								<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
 							</span>
 						</td>
 					</tr>
+					</c:forEach>
 				</table>
 			</div>
 		 </form>

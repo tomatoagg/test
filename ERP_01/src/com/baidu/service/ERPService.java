@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.baidu.dao.ERPDao;
 import com.baidu.entity.Dept;
 import com.baidu.entity.EmpRole;
+import com.baidu.entity.Res;
 import com.baidu.entity.Role;
 import com.baidu.entity.User;
 @Service("service")
@@ -119,5 +120,33 @@ public class ERPService {
 	public List<EmpRole> findUserRoleServletToJson(String uuid) {
 		// TODO Auto-generated method stub
 		return this.dao.findUserRoleServletToJson(uuid);
+	}
+	/**
+	 * 查询所有资源信息
+	 * @return
+	 */
+	
+	public List<Res> findResList() {
+		// TODO Auto-generated method stub
+		return dao.findResList();
+	}
+	/**
+	 * 添加角色并返回主键
+	 * @param name
+	 * @param code
+	 * @return
+	 */
+	public int insetRole(String name, String code) {
+		// TODO Auto-generated method stub
+		return dao.insetRole(name,code);
+	}
+	/**
+	 * 添加角色资源中间表
+	 * @param uuid
+	 * @param id
+	 */
+	public void insertRoleRes(int uuid, String id) {
+		// TODO Auto-generated method stub
+		dao.insertRoleRes(uuid,id);
 	}
 }

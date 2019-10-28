@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 
 import com.baidu.entity.Dept;
 import com.baidu.entity.EmpRole;
+import com.baidu.entity.Res;
 import com.baidu.entity.Role;
 import com.baidu.entity.User;
 
@@ -204,6 +205,47 @@ public class ERPDao {
 		String sql = "select * from tbl_emp_role where empUuid =  "+uuid;
 		RowMapper<EmpRole> row = new BeanPropertyRowMapper<>(EmpRole.class);
 		return jdbcT.query(sql,row);
+	}
+	/**
+	 * 查询所有信息
+	 * @return
+	 */
+	public List<Res> findResList() {
+		// TODO Auto-generated method stub
+		String sql = "select * from tbl_res ";
+		RowMapper<Res> row = new BeanPropertyRowMapper<>(Res.class);
+		return jdbcT.query(sql,row);
+	}
+	/**
+	 * 添加角色并返回主键
+	 * @param name
+	 * @param code
+	 * @return
+	 */
+	public int insetRole(String name, String code) {
+		String sql = "insert into tbl_role (name,code)values('"+name+"','"+code+"')";
+		// 创建一个主键持有者
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		jdbcT.update(new PreparedStatementCreator() {
+			@Override
+			public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+				// TODO Auto-generated method stub
+				PreparedStatement ps = conn.prepareStatement(sql);
+				return ps;
+			}
+		},keyHolder);
+		//返回添加到主键
+		return keyHolder.getKey().intValue();
+	}
+	/**
+	 * 添加中间表
+	 * @param uuid
+	 * @param id
+	 */
+	public void insertRoleRes(int uuid, String id) {
+		// TODO Auto-generated method stub
+		String sql = "insert into tbl_role_res (roleuuid,resuuid)values("+uuid+","+id+")";
+		jdbcT.update(sql);
 	}
 	
 }
