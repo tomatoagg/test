@@ -44,6 +44,15 @@ public class InsertUserAndUserRole extends HttpServlet {
 		String address = request.getParameter("address");
 		String dept =request.getParameter("dept");
 		User user = new User();
+		user.setAddress(address);
+		user.setDepUuid(dept);
+		user.setEmail(email);
+		user.setGender(gender);
+		user.setName(name);
+		user.setUserName(userName);
+		user.setPwd(pwd);
+		user.setTele(tele);
+		
 		String[] values = request.getParameterValues("roleId");
 		//添加用户表并返回主键
 		int uuid = service.insertUser(user);

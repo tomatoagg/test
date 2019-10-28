@@ -22,7 +22,7 @@
 			{username:username,pwd:pwd},//传到后台到参数
 			function(data){//访问成功后执行到方法，data是 后台返回的数据
 				if(data == "1"){
-					window.open("<%=request.getContextPath()%>/jsps/main.jsp");
+					location.href="<%=request.getContextPath()%>/jsps/main.jsp";
 				}
 			},'text'
 		)

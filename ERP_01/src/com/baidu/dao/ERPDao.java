@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -39,6 +40,31 @@ public class ERPDao {
 		User user1 = jdbcT.queryForObject(sql, row);
 		
 		return user1;
+	}
+	
+	/**
+	 * 
+	 * @param uuid
+	 * @return
+	 */
+	
+	public List<Map<String,Object>> findUserResUrlList(int uuid){
+		String sql ="SELECT DISTINCT\n" + 
+				"	b.url \n" + 
+				"FROM\n" + 
+				"	( \n" + 
+				"		SELECT \n" + 
+				"			e.empUuid, e.roleUuid \n" + 
+				"		FROM \n" + 
+				"			tbl_emp_role e \n" + 
+				"		WHERE \n" + 
+				"			e.empUuid = "+ uuid + 
+				"	) a\n" + 
+				"	LEFT JOIN tbl_role_res r ON r.roleuuid = a.roleUuid\n" + 
+				"	LEFT JOIN tbl_res b ON r.resUuid = b.uuid";
+		List<Map<String,Object>> list = jdbcT.queryForList(sql);
+		
+		return list;
 	}
 	/**
 	 * 查询所有部门数据
@@ -171,7 +197,8 @@ public class ERPDao {
 	 * 添加用户并返回主键id
 	 */
 	public int  insertUser(User user) {
-		String sql  =  "INSERT INTO `ERP`.`tbl_emp`( `userName`, `pwd`, `name`, `email`, `tele`, `address`, `gender`, `birthday`, `depUuid`, `lastLoginTime`, `lastLoginIp`, `loginTimes`) VALUES ('admin', '1', '赵云', 'admin@itcast.cn', '112233', '金燕龙1楼大厅', 1, 1263830400000, 1, 1422266691599, '0:0:0:0:0:0:0:1', 33)";
+		String sql  =  "INSERT INTO `ERP`.`tbl_emp`( `name`, `pwd`, `username`, `email`, `tele`, `address`, `gender`, `birthday`, `depUuid`, `lastLoginTime`, `lastLoginIp`, `loginTimes`) VALUES"
+				+ " ('"+user.getName()+"', '"+user.getPwd()+"', '"+user.getUserName()+"', '"+user.getEmail()+"', '"+user.getTele()+"', '"+user.getAddress()+"', "+user.getGender()+", 1263830400000, "+user.getDepUuid()+", 1422266691599, '0:0:0:0:0:0:0:1', 33)";
 		// 创建一个主键持有者
 		KeyHolder keyHolder = new GeneratedKeyHolder();
 		jdbcT.update(new PreparedStatementCreator() {

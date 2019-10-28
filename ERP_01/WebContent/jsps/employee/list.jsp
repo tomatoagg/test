@@ -60,7 +60,7 @@
 							</select>
 						</td>
 							
-						<td width="70"><a href="<%=request.getContextPath()%>/jsps/employee/input.jsp"> <img src="<%=request.getContextPath()%>/images/can_b_02.gif" border="0" /> </a></td>
+						<td width="70"><a href="<%=request.getContextPath()%>/jsps/employee/insert.jsp"> <img src="<%=request.getContextPath()%>/images/can_b_02.gif" border="0" /> </a></td>
 					</tr>
 					<tr>
 						<td  height="30">电子邮件</td>

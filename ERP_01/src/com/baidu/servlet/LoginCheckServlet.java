@@ -2,6 +2,8 @@ package com.baidu.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -56,6 +58,10 @@ public class LoginCheckServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			//将用户数据保存到session中
 			session.setAttribute("userSession", user);
+			//查询当前登陆用户所有权限
+			List<Map<String,Object>> list = service.findUserResUrlList(user.getUuid());
+			//将权限信息保存到session中
+			session.setAttribute("resList", list);
 			out.write("1");
 		}
 		
